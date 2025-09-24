@@ -9,3 +9,4 @@ SQL connection testing before the lectures
 
 ## Branch - setup
 Install R packages that are required for the lectures
+
