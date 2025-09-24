@@ -1,0 +1,119 @@
+---
+title: "Data Wrangling in R"
+subtitle: "Environment Set Up"
+author: "[Your Name]"   # (!!!) Update your name
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+
+<!-- #............................................................................. -->
+<!-- # Environment Set Up -->
+<!-- #............................................................................. -->
+
+<hr>
+
+```{r, echo=FALSE}
+date_report <- Sys.Date()
+date_due_pre <- as.Date("2025-10-08")
+date_due_lecture5 <- as.Date("2025-10-08")
+date_due_lecture6 <- as.Date("2025-10-09")
+date_due_lecture7 <- as.Date("2025-10-10")
+date_due_lecture8 <- as.Date("2025-10-10")
+date_due_lecture9 <- as.Date("2025-10-11")
+date_due_lecture10 <- as.Date("2025-10-11")
+date_due_lecture11 <- as.Date("2025-10-13")
+date_due_lecture6to10 <- as.Date("2025-10-13")
+```
+
+`r if(date_report <= date_due_pre) {"\\begin{comment}"}`
+# Environment Set Up
+`r if(date_report <= date_due_pre) {"\\end{comment}"}`
+
+`r if(date_report > date_due_pre) {"\\begin{comment}"}`
+# Environment Set Up (**Response needed by `r format(date_due_pre,"%B %d, %Y")`)
+`r if(date_report > date_due_pre) {"\\end{comment}"}`
+
+<br>
+**Instructions**
+
+* Update [Your Name] on the top
+* No other changes are needed
+* Click "Knit" on the toolbar. Packages required for Data Wrangling Letures should be automatically installed.
+* DW_R_setup.html should be saved in the same folder as DW_R_setup.Rmd file
+
+<br>
+
+```{r setup, include=FALSE}
+
+package_wishlist.V <- c(
+  "tidyverse",             
+  "readxl",                 # import xls, xlsx
+  "openxlsx",               # import and format xlsx
+  "haven",                  # import sas, spss, strata
+  "DBI", "odbc", "RSQLite", # packages for SQL database connection
+  "httr",                   # package for HTTP API
+  "jsonlite",               # json parser in R
+  "googlesheets4",          # package that simplifies API to Google sheet
+  "WDI",                    # package that simplifies API to World Bank
+  "rentrez",                # package that simplifies API to Entrez databases (the r-cran version is suspending due to cran checks)
+  "VIM",                    # Visualizing and Imputing Missing Data
+  "mice"                    # Multivariate Imputation by Chained Equations. One of the most powerful tools for handling missing data 
+  )
+
+package_installed.DF <- as.data.frame(installed.packages()) # packages already installed
+
+package_toinstall.V <- package_wishlist.V[!package_wishlist.V %in% package_installed.DF$Package]
+```
+
+
+**`r length(package_wishlist.V)` packages** are required for the Data Wrangling Lectures: `r paste(package_wishlist.V, collapse=", ")`.         
+
+You have **`r length(package_wishlist.V)-length(package_toinstall.V)`/`r length(package_wishlist.V)` packages** already installed.             
+
+**`r length(package_toinstall.V)` package(s)** will be installed: `r paste(package_toinstall.V, collapse=", ")`            
+ 
+
+```{r, echo=F, include=TRUE, results='asis'}
+if(length(package_toinstall.V) > 0)
+{
+  for(ipkg in 1:length(package_toinstall.V))
+  {
+    pkgs <- package_toinstall.V[ipkg]
+    cat("\n\n## Installing ",pkgs, "\n\n", sep="")
+    install.packages(pkgs = pkgs, repos = "http://cran.us.r-project.org")
+  }
+}
+```
+
+
+
+
+<!-- ######################################### -->
+<!-- ## DO NOT MAKE CHANGES AFTER THIS LINE ## -->
+<!-- ######################################### -->
+
+    
+
+
+```{css, echo=FALSE}
+
+h1 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+p {
+  font-family: Arial;
+  font-size: 15px;
+}
+
+```
