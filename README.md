@@ -19,7 +19,6 @@ SQL connection testing before the lectures
 - Follow Slides 15 to add DSN - DW_SQL into Windows OS
 - Follow Slides 16 to add DSN - DW_CCS into Windows OS
 - Follow Slides 17-18 to connect to DataWrangling2025 SQL Server through R
-- Send confirmation email to yichen.chen@stjude.org by using the email template (provided as attachment in the email notification on 9/30/2025)
 
 ## Branch - setup (or setup folder in Main branch)
 #### Description
@@ -31,7 +30,7 @@ Install R packages that are required for the lectures
 #### Instructions
 - Step 1: Download DW_R_setup.Rmd to a locate folder in your computer
 - Step 2: Update your name in Line 4
-- Step 3: Click "Knit"
-- Step 4: Find DW_R_setup.html in the folder (where you downloaded Download DW_R_setup.Rmd) and send it back to yichen.chen@stjude.org as part of your confirmation email
+- Step 3: Click "Knit" and packages will be installed automatically
+- Step 4: If you see DW_R_setup.html in your local folder (where you downloaded DW_R_setup.Rmd), it indicates that the package installation was successful. If you encounter any error messages during the installation process, please come to the office hour on October 6, 1–2 PM.
 - Step 5 (optional): Click "knit" again, the HTML output should be refreshed to "You have 14/14 packages already installed."
 
