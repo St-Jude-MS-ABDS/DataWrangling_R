@@ -1,0 +1,13 @@
+This is a public data set,,,,,
+Question,patient identification number,age in years,sex,chest pain type,Date of diagnosis
+Variable name,id,age,sex,cp,diagnosis date
+,1,63,.,1,4/26/2019
+,2,67,1,4,3/1/2023
+,3,67,1,.,9/2/2023
+,4,37,1,3,6/24/2023
+,5,41,0,2,12/14/2022
+,6,56,.,2,11/5/2023
+,7,62,0,4,8/23/2021
+,8,57,0,4,3/9/2021
+,9,63,1,.,4/6/2018
+,10,53,1,4,7/25/2022
