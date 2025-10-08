@@ -1,0 +1,516 @@
+---
+title: "Data Wrangling in R"
+author: "[Your Name]"   # (!!!) Update your name
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<!-- ## Timelines  -->
+<!-- ## Environment Set Up: Before Lecture 5. Student's response due Oct 6, 2025 -->
+
+
+<!-- #............................................................................. -->
+<!-- # Environment Set Up -->
+<!-- #............................................................................. -->
+
+<hr>
+
+```{r, echo=FALSE}
+date_report <- Sys.Date()
+date_lecture56   <- as.Date("2025-10-08")
+date_lecture78   <- as.Date("2025-10-09")
+date_lecture910   <- as.Date("2025-10-10")
+date_lecture11   <- as.Date("2025-10-13")
+date_due_project <- as.Date("2025-10-13")
+```
+
+
+# Environment Set Up
+
+**Instructions**
+
+* Update [Your Name] on the top
+* No other changes are needed
+* Click "Knit" on the toolbar. Packages required for Data Wrangling in R Letures should be automatically installed.
+* After knitting, an output file (datawrangling_R.html) will be saved in the same folder as datawrangling_R.Rmd
+
+<br>
+
+```{r setup, include=FALSE}
+
+package_wishlist.V <- c(
+  "tidyverse",             
+  "readxl",                 # import xls, xlsx
+  "openxlsx",               # import and format xlsx
+  "haven",                  # import sas, spss, strata
+  "DBI", "odbc", "RSQLite", # packages for SQL database connection
+  "httr",                   # package for HTTP API
+  "jsonlite",               # json parser in R
+  "googlesheets4",          # package that simplifies API to Google sheet
+  "WDI",                    # package that simplifies API to World Bank
+  "rentrez",                # package that simplifies API to Entrez databases (the r-cran version is suspending due to cran checks)
+  "VIM",                    # Visualizing and Imputing Missing Data
+  "mice"                    # Multivariate Imputation by Chained Equations. One of the most powerful tools for handling missing data 
+  )
+
+package_installed.DF <- as.data.frame(installed.packages()) # packages already installed
+
+package_toinstall.V <- package_wishlist.V[!package_wishlist.V %in% package_installed.DF$Package]
+```
+
+
+**`r length(package_wishlist.V)` packages** are required for the Data Wrangling Lectures: `r paste(package_wishlist.V, collapse=", ")`.         
+
+You have **`r length(package_wishlist.V)-length(package_toinstall.V)`/`r length(package_wishlist.V)` packages** already installed.             
+
+**`r length(package_toinstall.V)` package(s)** will be installed: `r paste(package_toinstall.V, collapse=", ")`            
+ 
+
+```{r, echo=F, include=TRUE, results='asis'}
+if(length(package_toinstall.V) > 0)
+{
+  for(ipkg in 1:length(package_toinstall.V))
+  {
+    pkgs <- package_toinstall.V[ipkg]
+    cat("\n\n## Installing ",pkgs, "\n\n", sep="")
+    install.packages(pkgs = pkgs, repos = "http://cran.us.r-project.org")
+  }
+}
+```
+
+
+<!-- #............................................................................. -->
+<!-- # Lecture 5: Importing Data into R (SQL data import basics) -->
+<!-- #............................................................................. -->
+
+<hr>
+
+# Lecture 5: Importing Data into R (SQL data import basics)
+
+**Instructions**
+
+* Download datawrangling_R_lecture5.xlsx from <a href="https://github.com/St-Jude-MS-ABDS/DataWrangling_R">Github DataWrangling_R repository</a> 
+* Add R code to the R chunks below by following the instructions in comment lines (lines start with #)
+* Using tips if you are facing challenges
+* After input R code, click "Knit" on the toolbar
+* After knitting, an output file (datawrangling_R.html) will be saved in the same folder as datawrangling_R.Rmd
+* If you experience error and cannot get the HTML output, send email to yichen.chen@stjude.org
+* **You should complete R chunks for Lecture 5 by `r paste0(format(date_lecture56, "%A"),", ",format(date_lecture56, "%B %d, %Y"))`**
+
+<br>
+
+```{r rchunk5-1}
+# Add R code here to import datawrangling_R_lecture5.xlsx (sheet: Drug Unit). Use the readxl::read_xlsx() function and its arguments to import only columns D to G, and use row 2 as the column names.
+
+# Add R code here to check R data type for the imported data (Tip 1)
+
+# Add R code here to return dimensions (number of rows and number of columns) of the imported data (Tip 2)
+
+# Add R code here to return column names of the imported data (Tip 3)
+
+# Please describe the differences between functions readxl::read_xlsx() and readxl::read_excel()
+# [Your response]
+
+```
+
+
+<br>
+
+```{r rchunk5-2}
+# In Lecture 5 Classwork #1, you read CSV and SAS data sets into R and saved them to a R data set. Please create a new environment (e.g. myenv) and load that R data set to the new environment.
+
+# Import the CSV data from new environment (e.g. myenv) to global environment
+
+```
+
+<br>
+
+```{r rchunk5-3}
+# Add R code here for connect to SQL Server DataWrangling2025, database datawrangling_R (DSN DW_R)
+
+# Add R code here to import dbo.cleveland by using SQL query
+
+# Add R code here to import dbo.switzerland by using SQL query
+
+# Add R code here to import dbo.heart_disease_names by using SQL query
+
+# Add R code here to save above three data sets (cleveland, switzerland and heart_disease_names) into a R data set
+
+```
+
+
+## TIPs
+
+Tip 1: Use sapply() and class() functions to get R data type for each column             
+Tip 2: use dim(), ncol(), or nrow() functions to get dimension, number of rows and number of columns          
+Tip 3: use colnames() function to get column names
+
+
+<!-- #............................................................................. -->
+<!-- # Lectures 6 Working with Data Frames in R: The Foundation of Data Analysis -->
+<!-- #............................................................................. -->
+
+<hr>
+
+# Lectures 6 Working with Data Frames in R: The Foundation of Data Analysis 
+
+**Instructions**
+
+* Import cleveland, switzerland and heart_disease_names from SQL database datawrangling_R (DSN DW_R)
+* Add R code to the R chunks below by following the instructions in comment lines (lines start with #)
+* Using tips if you are facing challenges
+* After input R code, click "Knit" on the toolbar
+* After knitting, an output file (datawrangling_R.html) will be saved in the same folder as datawrangling_R.Rmd
+* If you experience error and cannot get the HTML output, send email to Lei.Wang@stjude.org
+* **You should complete R chunks for Lecture 6 by `r paste0(format(date_lecture56, "%A"),", ",format(date_lecture56, "%B %d, %Y"))`**
+
+<br>
+
+
+```{r rchunk6-1}
+
+# Add R code here to check the data type and dimensions of the imported Cleveland dataset
+
+
+
+# Add R code here to display the structure of the Cleveland dataset and the type of each variable
+
+
+
+# Add R code here to preview the last 5 rows of the Cleveland dataset
+
+
+
+# Add R code here to find the median age in the Cleveland dataset and create a subset with participants older than the median age
+
+
+
+# Add R code here to create a new variable named "age_GE_50" in the Cleveland dataset that labels whether a participant is older than 50
+
+
+
+# Add R code here to create a subset of the data containing only male participants and sort it by age
+
+
+
+```
+
+## TIPs
+Tip 1: According to heart_disease_names, sex is coded as 1 = male and 0 = female.         
+Tip 2: Use which() to select elements based on a condition.
+
+
+<!-- <hr> -->
+<!-- <div class="info-box"> -->
+<!-- <p class="info-box-title">Note</p> -->
+<!-- <p class="info-box-content">You should complete lecture 5 and lecture 6 by `r format(date_lecture56, "%B %d, %Y")`.</p> -->
+<!-- </div> -->
+<!-- <hr> -->
+
+<!-- #............................................................................. -->
+<!-- # Lectures 7  Working with Strings & Factors in R: Managing Text and Categorical Data -->
+<!-- #............................................................................. -->
+
+<hr>
+
+# Lectures 7 Working with Strings & Factors in R: Managing Text and Categorical Data
+
+**Instructions**
+
+* Import cleveland, switzerland and heart_disease_names from SQL database datawrangling_R (DSN DW_R)
+* Add R code to the R chunks below by following the instructions in comment lines (lines start with #)
+* Using tips if you are facing challenges
+* After input R code, click "Knit" on the toolbar
+* After knitting, an output file (datawrangling_R.html) will be saved in the same folder as datawrangling_R.Rmd
+* If you experience error and cannot get the HTML output, send email to Lei.Wang@stjude.org
+* **You should complete R chunks for Lecture 7 by `r paste0(format(date_lecture78, "%A"),", ",format(date_lecture78, "%B %d, %Y"))`**
+
+<br>
+
+
+```{r rchunk7-1}
+# Add R code here to convert the "sex" variable in the Cleveland dataset to a factor
+
+
+
+# Add R code to recode the "sex" variable so that it is shown as "Female" or "Male" in the Cleveland dataset
+
+
+
+# Add R code here to show the frequency of each sex in the Cleveland dataset
+
+
+
+# Add R code to set "Male" as the reference level for the "sex" variable
+
+
+
+# Bonus question:
+# Add R code to generate a new variable (column) called "state" to store the state information for each patient
+
+
+
+
+
+
+```
+
+## TIPs
+
+Tip 1: According to heart_disease_names, sex is coded as 1 = male and 0 = female.
+
+Tip 2: Use table() to check frequency counts.
+
+Tip 3: Use as.factor(), levels(), and relevel() for factor manipulation.
+
+Tip 4: Use stringr functions for string manipulation.
+
+
+
+
+<!-- #............................................................................. -->
+<!-- # Lectures 8  Handling Missing Data & Outliers in R: Techniques for Clean and Robust Data -->
+<!-- #............................................................................. -->
+
+<hr>
+
+# Lectures 8 Handling Missing Data & Outliers in R: Techniques for Clean and Robust Data 
+
+**Instructions**
+
+* Import cleveland, switzerland and heart_disease_names from SQL database datawrangling_R (DSN DW_R)
+* Add R code to the R chunks below by following the instructions in comment lines (lines start with #)
+* Using tips if you are facing challenges
+* After input R code, click "Knit" on the toolbar
+* After knitting, an output file (datawrangling_R.html) will be saved in the same folder as datawrangling_R.Rmd
+* If you experience error and cannot get the HTML output, send email to Lei.Wang@stjude.org
+* **You should complete R chunks for Lecture 8 by `r paste0(format(date_lecture78, "%A"),", ",format(date_lecture78, "%B %d, %Y"))`**
+
+<br>
+
+
+```{r rchunk8-1}
+# Add R code here to check for missing values in the "sex" variable in the Cleveland dataset
+ 
+
+# Add R code here to check for missing values in the "ca" variable in the Cleveland dataset
+
+
+# Add R code here to identify which IDs have missing values in the "ca" variable in the Cleveland dataset
+
+
+# Add R code here to calculate the mean of the "ca" variable in the Cleveland dataset
+
+
+# Add R code here to replace missing values in "ca" with the mean of "ca"
+
+
+```
+
+## TIPs
+
+Tip 1: Use is.na() to check for missing (NA) values.
+
+Tip 2: Use which() to select elements based on a condition.
+
+
+
+
+
+
+
+<!-- #............................................................................. -->
+<!-- # Lectures 9  Working with Dates in R: Managing Time and Date Data Efficiently -->
+<!-- #............................................................................. -->
+
+<hr>
+
+# Lectures 9 Working with Dates in R: Managing Time and Date Data Efficiently 
+
+**Instructions**
+
+* Import cleveland, switzerland and heart_disease_names from SQL database datawrangling_R (DSN DW_R)
+* Add R code to the R chunks below by following the instructions in comment lines (lines start with #)
+* Using tips if you are facing challenges
+* After input R code, click "Knit" on the toolbar
+* After knitting, an output file (datawrangling_R.html) will be saved in the same folder as datawrangling_R.Rmd
+* If you experience error and cannot get the HTML output, send email to Lei.Wang@stjude.org
+* **You should complete R chunks for Lecture 9 by `r paste0(format(date_lecture910, "%A"),", ",format(date_lecture910, "%B %d, %Y"))`**
+
+<br>
+
+
+```{r rchunk9-1}
+# Add R code here to check the variable class for "pseudo_diagnosis_date" in the cleveland dataset
+
+
+
+# Add R code to create a variable "DX_year" representing the diagnosis year for each patient
+
+
+
+# Add R code to calculate "Years_followup" as the number of years since each patient's diagnosis.
+
+
+
+
+```
+
+## TIPs
+
+Tip 1: Use today() to get current date
+
+Tip 2: Use year(), month(), and day() to extract the year, month and day from a date object
+
+Tip 3: Use as.Date() to convert character strings to Date class. Specify the format of the date using the format argument, e.g.,
+as.Date(cleveland$pseudo_diagnosis_date, format = "%m/%d/%Y")
+
+
+
+
+
+
+
+<!-- #............................................................................. -->
+<!-- # Lectures 10  Reshaping Data in R: Transforming Data for Analysis and Modeling -->
+<!-- #............................................................................. -->
+
+<hr>
+
+# Lectures 10 "Reshaping Data in R: Transforming Data for Analysis and Modeling
+
+**Instructions**
+
+* Import cleveland, switzerland and heart_disease_names from SQL database datawrangling_R (DSN DW_R)
+* Add R code to the R chunks below by following the instructions in comment lines (lines start with #)
+* Using tips if you are facing challenges
+* After input R code, click "Knit" on the toolbar
+* After knitting, an output file (datawrangling_R.html) will be saved in the same folder as datawrangling_R.Rmd
+* If you experience error and cannot get the HTML output, send email to Lei.Wang@stjude.org
+* **You should complete R chunks for Lecture 10 by `r paste0(format(date_lecture910, "%A"),", ",format(date_lecture910, "%B %d, %Y"))`**
+
+<br>
+
+
+```{r rchunk10-1}
+# Add R code here to summarize mean and standard deviation of the variable "oldpeak" by sex (practice using dplyr functions) in the cleveland dataset
+
+
+
+
+# Add R code here to generate a long-format dataset that includes id, trestbps, chol, and fbs information
+
+
+
+
+```
+
+## TIPs
+
+Tip 1: Use dplyr functions to summarize variables by group.
+
+Tip 2: Use pivot_longer() or pivot_wider() for data transformation.
+
+
+
+
+
+
+<!-- #............................................................................. -->
+<!-- # Lectures 11  Combining Data in R: Merging, Joining, and Binding Datasets for Analysis -->
+<!-- #............................................................................. -->
+
+<hr>
+
+# Lectures 11 Combining Data in R: Merging, Joining, and Binding Datasets for Analysis 
+
+**Instructions**
+
+* Import cleveland, switzerland and heart_disease_names from SQL database datawrangling_R (DSN DW_R)
+* Add R code to the R chunks below by following the instructions in comment lines (lines start with #)
+* Using tips if you are facing challenges
+* After input R code, click "Knit" on the toolbar
+* After knitting, an output file (datawrangling_R.html) will be saved in the same folder as datawrangling_R.Rmd
+* If you experience error and cannot get the HTML output, send email to Lei.Wang@stjude.org
+* **You should complete R chunks for Lecture 11 by `r paste0(format(date_lecture11, "%A"),", ",format(date_lecture11, "%B %d, %Y"))`**
+
+<br>
+
+
+```{r rchunk11-1}
+### We want to combine the Cleveland and Switzerland datasets.
+# 1. Consider what type of combining is appropriate here.
+# 2. Consider what challenges might arise when combining the two datasets.
+# 3. Add R code here to combine the two datasets.
+# 4. Summarize the number of participants by datasets source and by sex.
+
+
+
+
+
+
+
+
+```
+
+## TIPs
+
+Tip 1: Row binding is appropriate here, as it combines the information from two datasets into one.
+
+Tip 2: Since the IDs from the two datasets overlap, you need to add a variable to label the data source (e.g., "cleveland" or "switzerland") before combining them.
+
+Tip 3: Before combining, ensure that variables with the same name have the same data type.  
+
+
+
+<!-- ######################################### -->
+<!-- ## DO NOT MAKE CHANGES AFTER THIS LINE ## -->
+<!-- ######################################### -->
+
+    
+
+```{css, echo=FALSE}
+
+h1 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+p {
+  font-family: Arial;
+  font-size: 15px;
+}
+
+.info-box {
+  background-color: #f0f8ff; /* Light blue background */
+  border: 1px solid #add8e6; /* Light blue border */
+  padding: 10px;
+  margin-top: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.info-box-title {
+  font-family: Arial;
+  color: #2f4f4f; /* Dark slategray */
+  font-size: 1.2em;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.info-box-content {
+  font-family: Arial;
+  color: #4682b4; /* Steel blue */
+  font-size: 1.2em;
+  line-height: 1.5;
+}
+
+```
