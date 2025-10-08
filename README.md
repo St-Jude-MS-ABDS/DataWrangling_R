@@ -1,6 +1,17 @@
 # DataWrangling_R
 Git repository for the Data Wrangling in R Unit (Lectures 5–12)
 
+## folder - lecture5
+#### Description
+Lecture 5: slides, data, and example code
+
+#### List of contents
+- lecture5/lecture5.pptx
+- lecture5/datawrangling_R_lecture5.csv: CSV data used in Classwork #1
+- lecture5/datawrangling_R_lecture5.sas7bdat: SAS data used in Classwork #1
+- lecture5/datawrangling_R_lecture5.xlsx: XLSX data used in mini project
+
+
 ## Branch - testing (or testing folder in Main branch)
 #### Description
 SQL connection testing before the lectures
