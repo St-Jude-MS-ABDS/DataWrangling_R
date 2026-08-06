@@ -1,34 +1,8 @@
 # DataWrangling_R
 
-Git repository for the Data Wrangling in R Unit (Lectures 5–12)
+Git repository for the Data Wrangling Course - Unit 2
 
-## folder - lecture5
-
-#### Description
-
-Lecture 5: slides, data, and example code
-
-#### List of contents
-
--   lecture5/lecture5.pptx
--   lecture5/datawrangling_R_lecture5.csv: CSV data used in Classwork #1
--   lecture5/datawrangling_R_lecture5.sas7bdat: SAS data used in Classwork #1
--   lecture5/datawrangling_R_lecture5.xlsx: XLSX data used in mini project
-
-## folder - lecture12
-
-#### Description
-
-Lecture 12: slides and example code
-
-#### List of contents
-
--   lecture12/lecture12.pptx
--   lecture12/lecture12_REDCap.R
--   lecture12/lecture12_googlesheet.R
--   lecture12/lecture12_PubMed.R
-
-## Branch - testing (or testing folder in Main branch)
+## Folder - SQL connection testing
 
 #### Description
 
@@ -51,7 +25,7 @@ SQL connection testing before the lectures
 -   Follow Slides 16 to add DSN - DW_CCS into Windows OS
 -   Follow Slides 17-18 to connect to DataWrangling2025 SQL Server through R
 
-## Branch - setup (or setup folder in Main branch)
+## Folder - R setup
 
 #### Description
 
